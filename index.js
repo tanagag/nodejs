@@ -1,11 +1,13 @@
 var  http  =  require('http');  
-var	 otherfun =	require("./otherfun.js")
+var	 User =	require("./User")
+var	 Teacher =	require("./Teacher")
 http.createServer(function  (request,  response)  {  
     response.writeHead(200,  {'Content-Type':  'text/html;  charset=utf-8'});  
     if(request.url!=="/favicon.ico"){  //清除第2此访问  
-		// fun1(response);
-		var funname = 'fun2';
-		otherfun[funname](response)
+		var user = new User("Tom","20")
+		user.enter();
+		var user = new Teacher("Tom","20")
+		user.talk(response);
         response.end('');//不写则没有http协议尾,但写了会产生两次访问  
     }  
 }).listen(8000);  
