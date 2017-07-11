@@ -1,14 +1,12 @@
 var  http  =  require('http');  
-var	 User =	require("./User")
-var	 Teacher =	require("./Teacher")
+var  url =	require('url');
+var	 router =	require("./router.js")
 http.createServer(function  (request,  response)  {  
     response.writeHead(200,  {'Content-Type':  'text/html;  charset=utf-8'});  
     if(request.url!=="/favicon.ico"){  //清除第2此访问  
-		var user = new User("Tom","20")
-		user.enter();
-		var user = new Teacher("Tom","20")
-		user.talk(response);
-        response.end('');//不写则没有http协议尾,但写了会产生两次访问  
+		var pathname = url.parse(request.url).pathname;
+		pathname = pathname.replace(/\//,'');//替换路径掉前面/
+		router[pathname](request,response)
     }  
 }).listen(8000);  
 console.log('Server  running  at  http://127.0.0.1:8000/');  
